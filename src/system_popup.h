@@ -4,11 +4,19 @@
 #include <string>
 
 namespace rlm {
+
+
     class SystemPopup {
     public:
+		enum SystemPopupType {
+			MESSAGE,
+			WARNING,
+			NONFATAL_ERROR,
+			FATAL_ERROR,
+		};
         SystemPopup();
         ~SystemPopup();
-        void Create(const char* string);
+        void Create(const char* string, SystemPopupType type);
     };
 }
 
