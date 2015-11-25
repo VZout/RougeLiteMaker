@@ -20,7 +20,7 @@ namespace rlm {;
 
     inline void printerr(const char* string) {
         SystemPopup popup;
-        popup.Create(string);
+        popup.Create(string, SystemPopup::NONFATAL_ERROR);
         std::cerr << "[RLM][ERROR]: " << string << std::endl;
     }
 
