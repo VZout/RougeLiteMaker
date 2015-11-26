@@ -39,13 +39,10 @@ namespace rlm {
 
 			}
         #elif __linux__ || __unix__
-            std::string message = string;
-            //std::string prompt = "/usr/bin/notify-send RLM \"" + str + "\" --icon=dialog-error";
-            //system(prompt.c_str());
-
 			_isOpen = true;
 
 			//Split string into lines.
+            std::string message = string;
 			std::vector<std::string> lines;
 			std::stringstream ss(message);
 			std::string line;
