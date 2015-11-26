@@ -3,13 +3,15 @@
 
 #include <string>
 
-#include <X11/Xlib.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <vector>
-#include <iostream>
-#include <sstream>
+#if defined(__linux__) || defined(__unix__)
+	#include <X11/Xlib.h>
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <string.h>
+	#include <vector>
+	#include <iostream>
+	#include <sstream>
+#endif
 
 namespace rlm {
 
@@ -29,15 +31,17 @@ namespace rlm {
         void Create(const char* string, SystemPopupType type);
     };
 
-    class Button {
-    private:
-    public:
-        void (SystemPopup::*action)();
-        Button(const char* string, Display* display, Window window, GC gc, XFontStruct* font,
-                float x, float y, float width, float height, void (SystemPopup::*action)());
-        ~Button();
-        float x, y, width, height;
-    };
+	#if defined(__linux__) || defined(__unix__)
+		class Button {
+		private:
+		public:
+			void (SystemPopup::*action)();
+			Button(const char* string, Display* display, Window window, GC gc, XFontStruct* font,
+				    float x, float y, float width, float height, void (SystemPopup::*action)());
+			~Button();
+			float x, y, width, height;
+		};
+	#endif
 }
 
 #endif

@@ -152,38 +152,40 @@ namespace rlm {
         #endif
     }
 
-	Button::Button(const char* string, Display* display,
-					Window window, GC gc, XFontStruct* font, float x, float y,
-					float width, float height, void (SystemPopup::*action)()) {
+	#if defined(__linux__) || defined(__unix__)
+		Button::Button(const char* string, Display* display,
+						Window window, GC gc, XFontStruct* font, float x, float y,
+						float width, float height, void (SystemPopup::*action)()) {
 
-		XColor color;
-		Colormap colormap;
-		char grey[] = "#A6A6A6";
-		char black[] = "#000000";
+			XColor color;
+			Colormap colormap;
+			char grey[] = "#A6A6A6";
+			char black[] = "#000000";
 
-		colormap = DefaultColormap(display, 0);
-		XParseColor(display, colormap, grey, &color);
-		XAllocColor(display, colormap, &color);
+			colormap = DefaultColormap(display, 0);
+			XParseColor(display, colormap, grey, &color);
+			XAllocColor(display, colormap, &color);
 
-		XSetForeground(display, gc, color.pixel);
-		XFillRectangle(display, window, gc, x, y, width, height);
+			XSetForeground(display, gc, color.pixel);
+			XFillRectangle(display, window, gc, x, y, width, height);
 
-		colormap = DefaultColormap(display, 0);
-		XParseColor(display, colormap, black, &color);
-		XAllocColor(display, colormap, &color);
+			colormap = DefaultColormap(display, 0);
+			XParseColor(display, colormap, black, &color);
+			XAllocColor(display, colormap, &color);
 
-		XSetForeground(display, gc, color.pixel);
-		float length = XTextWidth(font, string, strlen(string));
-		XDrawString(display, window, gc, x + width / 2 - length / 2, y + 18, string, strlen(string));
-		this->x = x;
-		this->y = y;
-		this->width = width;
-		this->height = height;
-		this->action = action;
-	}
+			XSetForeground(display, gc, color.pixel);
+			float length = XTextWidth(font, string, strlen(string));
+			XDrawString(display, window, gc, x + width / 2 - length / 2, y + 18, string, strlen(string));
+			this->x = x;
+			this->y = y;
+			this->width = width;
+			this->height = height;
+			this->action = action;
+		}
 
-	Button::~Button() {
+		Button::~Button() {
 
-	}
+		}
+	#endif
 
 }
