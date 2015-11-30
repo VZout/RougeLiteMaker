@@ -12,7 +12,7 @@
 #include <string>
 #include "system_popup.h"
 
-namespace rlm {;
+namespace rlm {
 
     inline void print(const char* string) {
         std::cout << "[RLM]: " << string << std::endl;

@@ -8,6 +8,7 @@
 #ifndef DISPLAY_H_
 #define DISPLAY_H_
 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <game.h>
