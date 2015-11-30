@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 #include "system_popup.h"
 
 namespace rlm {
@@ -25,7 +26,7 @@ namespace rlm {
     }
 
     inline float random_float(int min, int max) {
-        float random = ((float) rand()) / (float) RAND_MAX;
+        float random = ((float) rand()) / (float) max;
         float diff = max - min;
         float r = random * diff;
         return min + r;
