@@ -10,8 +10,8 @@
 #define TEXTUREDATA_H_
 
 #include <GL/glew.h>
-#include <libpng/png.h>
-#include <libpng/pngconf.h>
+#include <libpng12/png.h>
+#include <libpng12/pngconf.h>
 #include <cstdio>
 
 namespace rlm {

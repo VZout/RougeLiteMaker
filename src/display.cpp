@@ -5,10 +5,10 @@
 *      @Author: Viktor Zoutman
 */
 
+#include <stdio.h>
 #include "display.h"
 
 namespace rlm {
-
     void Display::Create(Game* parent) {
 
         if (!glfwInit()) {
@@ -19,7 +19,6 @@ namespace rlm {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 
         window = glfwCreateWindow(640, 480, "RLMexample", NULL, NULL);
         if (!window) {
@@ -34,13 +33,12 @@ namespace rlm {
             //return -1; TODO: EXIT TO LAZY UGH.
         }
 
-        std::cout << glGetString(GL_VERSION) << std::endl;
-
+        std::cout << "Hello:" << glGetString(GL_VERSION) << std::endl;
         parent->InitGame();
 
         while(!glfwWindowShouldClose(window)) {
-            //glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glClearColor(0, 0, 0, 1);
 
             parent->GameLoop();
 

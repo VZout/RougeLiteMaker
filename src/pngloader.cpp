@@ -8,11 +8,7 @@
 
 #include "pngloader.h"
 
-#include <GL/glew.h>
-#include <libpng/png.h>
-#include <libpng/pngconf.h>
 #include <stdlib.h>
-#include <cstdio>
 
 namespace rlm {
 TextureData PNGLoader::loadPNG(const char* fileName) {
