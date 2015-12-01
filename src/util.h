@@ -9,9 +9,10 @@
 #define UTIL_H_
 
 #include <iostream>
-#include <string>
+#include <string>   
 #include <stdlib.h>
 #include <glm/glm.hpp>
+#include <vector>
 #include "system_popup.h"
 
 namespace rlm {

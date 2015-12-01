@@ -5,8 +5,10 @@
 *      @Author: Viktor Zoutman
 */
 
-#include <stdio.h>
 #include "display.h"
+
+#include <stdio.h>
+#include <vector>
 
 namespace rlm {
     void Display::Create(Game* parent) {
