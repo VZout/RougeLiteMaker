@@ -1,25 +1,40 @@
 #include "shape.h"
+#include <GL/glu.h>
+#include <GL/gl.h>
+#include <GL/glew.h>
 #include "util.h"
+#include "vertex.h"
 
 namespace rlm {
     Shape::Shape() {
-        glGenVertexArrays(1, &_vertexArrayID);
-        glBindVertexArray(_vertexArrayID);
-
-        static const GLfloat g_vertex_buffer_data[] = {
-            -1.0f, -1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f,
-            0.0f,  1.0f, 0.0f,
+        //Vertex manipulation
+        Vertex vertices[] = {
+                Vertex(glm::vec3(-0.5, -0.5, 0), glm::vec2(0.0, 0.0)),
+                Vertex(glm::vec3(-0, 0.5, 0), glm::vec2(0.5, 1.0)),
+                Vertex(glm::vec3(0.5, -0.5, 0), glm::vec2(1.0, 0.0)),
         };
 
+        unsigned int numVertices = sizeof(vertices)/sizeof(vertices[0]);
+
+        IndexedModel model;
+
+		for(unsigned int i = 0; i < numVertices; i++) {
+			model.positions.push_back(*vertices[i].GetPos());
+			model.texCoords.push_back(*vertices[i].GetTexCoord());
+		}
+        //end vertex manipulation
+
+        glGenVertexArrays(1, &_vertexArrayID);
+        glBindVertexArray(_vertexArrayID);
+        glGenBuffers(2, &_vertexbuffer); // 2 buffers
+
         // pos Buffer
-        glGenBuffers(1, &_vertexbuffer);
         glBindBuffer(GL_ARRAY_BUFFER, _vertexbuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(model.positions[0]) * model.positions.size(), &model.positions[0], GL_STATIC_DRAW);
 
         //texture Buffer
 		glBindBuffer(GL_ARRAY_BUFFER, _vertexbuffer);
-	    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+	    glBufferData(GL_ARRAY_BUFFER, sizeof(model.texCoords[0]) * model.texCoords.size(), &model.texCoords[0], GL_STATIC_DRAW);
 	    glEnableVertexAttribArray(1);
 	    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 

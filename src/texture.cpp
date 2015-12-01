@@ -6,7 +6,7 @@
  *		@Version: 1.0
  */
 
-#include "Texture.h"
+#include "texture.h"
 
 #include <libpng12/png.h>
 #include <stdlib.h>
@@ -34,7 +34,7 @@ Texture::Texture(const char* fileName) {
     glTexImage2D(GL_TEXTURE_2D, 0, tdata.getFormat(), tdata.getWidth(), tdata.getHeight(), 0, tdata.getFormat(), GL_UNSIGNED_BYTE, tdata.getTextureData());
 
     // clean up
-    //png_read_destroy(tdata.getPNGPtr(), tdata.getInfoPtr(), tdata.getEndInfo());
+    png_read_destroy(tdata.getPNGPtr(), tdata.getInfoPtr(), tdata.getEndInfo());
     free(tdata.getTextureData());
     free(tdata.getRowPointers());
     fclose(tdata.getFile());

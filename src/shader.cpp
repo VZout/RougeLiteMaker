@@ -15,7 +15,7 @@ namespace rlm {
 
 		glBindAttribLocation(program, 0, "position");
 		glBindAttribLocation(program, 1, "texCoord");
-		glBindAttribLocation(program, 2, "normal");
+		//glBindAttribLocation(program, 2, "normal");
 
 		glLinkProgram(program);
 		checkShaderError(program, GL_LINK_STATUS, true, "Program linking failed: ");
@@ -24,8 +24,8 @@ namespace rlm {
 		checkShaderError(program, GL_VALIDATE_STATUS, true, "Program is invalid: ");
 
 		uniforms[0] = glGetUniformLocation(program, "MVP");
-		uniforms[1] = glGetUniformLocation(program, "Normal");
-		uniforms[2] = glGetUniformLocation(program, "lightDirection");
+		//uniforms[1] = glGetUniformLocation(program, "Normal");
+		//uniforms[2] = glGetUniformLocation(program, "lightDirection");
 	}
 
 	Shader::~Shader() {
@@ -46,8 +46,8 @@ namespace rlm {
 		glm::mat4 Normal = transform.getModel();
 
 		glUniformMatrix4fv(uniforms[0], 1, GL_FALSE, &MVP[0][0]);
-		glUniformMatrix4fv(uniforms[1], 1, GL_FALSE, &Normal[0][0]);
-		glUniform3f(uniforms[2], 0.0f, 0.0f, 1.0f);
+		//glUniformMatrix4fv(uniforms[1], 1, GL_FALSE, &Normal[0][0]);
+		//glUniform3f(uniforms[2], 0.0f, 0.0f, 1.0f);
 	}
 
 	GLuint Shader::createShader(const std::string& text, GLenum shaderType) {
