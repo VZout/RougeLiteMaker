@@ -20,7 +20,7 @@ namespace rlm {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        window = glfwCreateWindow(640, 480, "RLMexample", NULL, NULL);
+        window = glfwCreateWindow(1280, 720, "RLMexample", NULL, NULL);
         if (!window) {
             printerr("Failed to create window. Does your GPU support opengl 3+?");
             glfwTerminate();

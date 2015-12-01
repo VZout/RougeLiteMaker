@@ -9,7 +9,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <GL/glu.h>
 #include <GL/gl.h>
+#include <GL/glew.h>
 
 #include "transform.h"
 #include "camera.h"

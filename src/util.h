@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <glm/glm.hpp>
 #include "system_popup.h"
 
 namespace rlm {
@@ -31,6 +32,15 @@ namespace rlm {
         float r = random * diff;
         return min + r;
     }
+
+    class IndexedModel
+    {
+    public:
+        std::vector<glm::vec3> positions;
+        std::vector<glm::vec2> texCoords;
+        std::vector<glm::vec3> normals;
+        std::vector<unsigned int> indices;
+    };
 
 }
 
