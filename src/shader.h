@@ -20,7 +20,7 @@ namespace rlm {
 	class Shader {
 	private:
 		static const unsigned int NUM_SHADERS = 2;
-		static const unsigned int NUM_UNIFORMS = 3;
+		static const unsigned int NUM_UNIFORMS = 1;
 
 		GLuint shaders[NUM_SHADERS];
 		GLuint uniforms[NUM_UNIFORMS];
