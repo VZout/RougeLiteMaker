@@ -5,6 +5,7 @@
 #include "shape.h"
 #include "util.h"
 #include "game.h"
+#include "color.h"
 
 namespace rlm {
     Shape::Shape() : Drawable() {
@@ -22,21 +23,24 @@ namespace rlm {
 
         glGenVertexArrays(1, &_vertexArrayID);
         glBindVertexArray(_vertexArrayID);
-        glGenBuffers(3, vertexArrayBuffers); // 3 buffers
+        glGenBuffers(NUM_BUFFERS, vertexArrayBuffers); // 3 buffers
 
         // pos Buffer
         glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[POSITION_VB]);
         glBufferData(GL_ARRAY_BUFFER, sizeof(model.positions[0]) * model.positions.size(), &model.positions[0], GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
         //texture Buffer
 		glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[TEXCOORD_VB]);
 	    glBufferData(GL_ARRAY_BUFFER, sizeof(model.texCoords[1]) * model.texCoords.size(), &model.texCoords[0], GL_STATIC_DRAW);
+        glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
         //color Buffer
         glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[COLOR_VB]);
         glBufferData(GL_ARRAY_BUFFER, sizeof(model.colors[0]) * model.colors.size(), &model.colors[0], GL_STATIC_DRAW);
+        glEnableVertexAttribArray(2);
         glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
     }
 
@@ -52,8 +56,15 @@ namespace rlm {
         glEnableVertexAttribArray(1);
         glEnableVertexAttribArray(2);
 
-        shader->update(transform, Game::camera);
+        glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[POSITION_VB]);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[TEXCOORD_VB]);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[COLOR_VB]);
+        glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
         shader->bind();
+        shader->update(transform, Game::camera);
         glDrawArrays(GL_TRIANGLES, 0, numVertices); // Starting from vertex 0; 3 vertices total -> 1 triangle
 
         glDisableVertexAttribArray(0);
@@ -76,9 +87,9 @@ namespace rlm {
         transform.setPos(glm::vec3(pos, 0));
 
         Vertex vertices[] = {
-                Vertex(glm::vec3(0, size.y, 0), glm::vec2(0.0, 1.0), glm::vec4(1,1,0,1)),
-                Vertex(glm::vec3(size.x / 2, 0, 0), glm::vec2(0.5, 1.0), glm::vec4(1,1,0,1)),
-                Vertex(glm::vec3(size.x, size.y, 0), glm::vec2(0.0, 0.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(0, size.y, 0), glm::vec2(0.0, 1.0), Color::GREEN),
+                Vertex(glm::vec3(size.x / 2, 0, 0), glm::vec2(0.5, 1.0), Color::RED),
+                Vertex(glm::vec3(size.x, size.y, 0), glm::vec2(0.0, 0.0), Color::BLUE),
         };
 
         numVertices = sizeof(vertices)/sizeof(vertices[0]);

@@ -15,10 +15,13 @@
 #include "shader.h"
 #include "texture.h"
 #include "drawable.h"
+#include "util.h"
 
 namespace rlm {
 
     class Shape : public Drawable {
+    private:
+        IndexedModel model;
     protected:
         void InitializeShape(Vertex* vertices);
 
