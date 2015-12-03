@@ -31,7 +31,8 @@ Texture::Texture(const char* fileName) {
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // Texture Filter
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // Texture Filter
 
-    glTexImage2D(GL_TEXTURE_2D, 0, tdata.getFormat(), tdata.getWidth(), tdata.getHeight(), 0, tdata.getFormat(), GL_UNSIGNED_BYTE, tdata.getTextureData());
+    glTexImage2D(GL_TEXTURE_2D, 0, tdata.getFormat(), tdata.getWidth(), tdata.getHeight(),
+				0, tdata.getFormat(), GL_UNSIGNED_BYTE, tdata.getTextureData());
 
     // clean up
     png_read_destroy(tdata.getPNGPtr(), tdata.getInfoPtr(), tdata.getEndInfo());

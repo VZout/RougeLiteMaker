@@ -16,7 +16,6 @@ namespace rlm {
 		glm::vec3 forward;
 		glm::vec3 up;
 	public:
-		Camera(const glm::vec3& pos, float fov, float aspect, float zNear, float zFar);
 		Camera(const glm::vec3& pos, glm::vec4 size, float zNear, float zFar);
 		virtual ~Camera();
 

@@ -11,34 +11,39 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include "vertex.h"
 
 namespace rlm {
 
     class Shape {
-    private:
-        // This will identify our vertex buffer
+    protected:
+
+        void InitializeShape(Vertex* vertices);
 
         static const unsigned int NUM_BUFFERS = 2;
-
+        unsigned int numVertices;
         GLuint _vertexArrayID;
         GLuint _vertexbuffer;
-
         GLuint vertexArrayBuffers[NUM_BUFFERS];
 
     public:
         Shape();
         ~Shape();
         void Draw();
+
     };
 
     class Triangle : public Shape {
     public:
         Triangle();
+        Triangle(glm::vec2 pos, glm::vec2 size);
         ~Triangle();
     };
 
     class Rectangle : public Shape {
+    public:
         Rectangle();
+        Rectangle(glm::vec2 pos, glm::vec2 size);
         ~Rectangle();
     };
 }
