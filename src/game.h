@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <GLFW/glfw3.h>
+#include <camera.h>
 
 #include "util.h"
 
@@ -35,6 +36,7 @@ class Display;
         void SetUpdateFunction(void (*update)());
 
         static Display display;
+        static Camera camera;
     };
 }
 

@@ -10,6 +10,7 @@
 namespace rlm {
 
 	Display Game::display;
+	Camera Game::camera(glm::vec3(0, 0, 0), glm::vec4(0.f, -1280.f, 720.f, 0.f), -1, 1);;
 	GLFWwindow* window;
 
 	Game::Game() {

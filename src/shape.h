@@ -12,12 +12,14 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include "vertex.h"
+#include "shader.h"
+#include "texture.h"
+#include "drawable.h"
 
 namespace rlm {
 
-    class Shape {
+    class Shape : public Drawable {
     protected:
-
         void InitializeShape(Vertex* vertices);
 
         static const unsigned int NUM_BUFFERS = 2;
@@ -28,6 +30,7 @@ namespace rlm {
 
     public:
         Shape();
+        Shape(glm::vec2 pos);
         ~Shape();
         void Draw();
 
@@ -41,9 +44,12 @@ namespace rlm {
     };
 
     class Rectangle : public Shape {
+    private:
+        glm::vec2 pos;
     public:
         Rectangle();
         Rectangle(glm::vec2 pos, glm::vec2 size);
+        glm::vec2 GetCenter();
         ~Rectangle();
     };
 }
