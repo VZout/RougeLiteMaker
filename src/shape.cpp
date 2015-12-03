@@ -28,20 +28,14 @@ namespace rlm {
         // pos Buffer
         glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[POSITION_VB]);
         glBufferData(GL_ARRAY_BUFFER, sizeof(model.positions[0]) * model.positions.size(), &model.positions[0], GL_STATIC_DRAW);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
         //texture Buffer
 		glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[TEXCOORD_VB]);
 	    glBufferData(GL_ARRAY_BUFFER, sizeof(model.texCoords[1]) * model.texCoords.size(), &model.texCoords[0], GL_STATIC_DRAW);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
         //color Buffer
         glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[COLOR_VB]);
         glBufferData(GL_ARRAY_BUFFER, sizeof(model.colors[0]) * model.colors.size(), &model.colors[0], GL_STATIC_DRAW);
-        glEnableVertexAttribArray(2);
-        glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
     }
 
     Shape::Shape(glm::vec2 pos) {
@@ -52,9 +46,9 @@ namespace rlm {
     }
 
     void Shape::Draw() {
-        glEnableVertexAttribArray(POSITION_VB);
-        glEnableVertexAttribArray(TEXCOORD_VB);
-        glEnableVertexAttribArray(COLOR_VB);
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
+        glEnableVertexAttribArray(2);
 
         glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[POSITION_VB]);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -67,9 +61,9 @@ namespace rlm {
         shader->update(transform, Game::camera);
         glDrawArrays(GL_TRIANGLES, 0, numVertices); // Starting from vertex 0; 3 vertices total -> 1 triangle
 
-        glDisableVertexAttribArray(POSITION_VB);
-        glDisableVertexAttribArray(TEXCOORD_VB);
-        glDisableVertexAttribArray(COLOR_VB);
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+        glDisableVertexAttribArray(2);
     }
 
     Triangle::Triangle() {
