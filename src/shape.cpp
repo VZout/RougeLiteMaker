@@ -52,9 +52,9 @@ namespace rlm {
     }
 
     void Shape::Draw() {
-        glEnableVertexAttribArray(0);
-        glEnableVertexAttribArray(1);
-        glEnableVertexAttribArray(2);
+        glEnableVertexAttribArray(POSITION_VB);
+        glEnableVertexAttribArray(TEXCOORD_VB);
+        glEnableVertexAttribArray(COLOR_VB);
 
         glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[POSITION_VB]);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -67,9 +67,9 @@ namespace rlm {
         shader->update(transform, Game::camera);
         glDrawArrays(GL_TRIANGLES, 0, numVertices); // Starting from vertex 0; 3 vertices total -> 1 triangle
 
-        glDisableVertexAttribArray(0);
-        glDisableVertexAttribArray(1);
-        glDisableVertexAttribArray(2);
+        glDisableVertexAttribArray(POSITION_VB);
+        glDisableVertexAttribArray(TEXCOORD_VB);
+        glDisableVertexAttribArray(COLOR_VB);
     }
 
     Triangle::Triangle() {
