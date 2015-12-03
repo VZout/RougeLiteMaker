@@ -1,14 +1,14 @@
-#include "shape.h"
+#include <GL/glew.h>
 #include <GL/glu.h>
 #include <GL/gl.h>
-#include <GL/glew.h>
+
+#include "shape.h"
 #include "util.h"
 #include "game.h"
 
 namespace rlm {
     Shape::Shape() : Drawable() {
         shader = new rlm::Shader("res/basicShader");
-        texture = new rlm::Texture("res/test.png");
     }
 
     void Shape::InitializeShape(Vertex* vertices) {
@@ -17,11 +17,12 @@ namespace rlm {
 		for(unsigned int i = 0; i < numVertices; i++) {
 			model.positions.push_back(*vertices[i].GetPos());
 			model.texCoords.push_back(*vertices[i].GetTexCoord());
+            model.colors.push_back(*vertices[i].GetColor());
 		}
 
         glGenVertexArrays(1, &_vertexArrayID);
         glBindVertexArray(_vertexArrayID);
-        glGenBuffers(2, vertexArrayBuffers); // 2 buffers
+        glGenBuffers(3, vertexArrayBuffers); // 3 buffers
 
         // pos Buffer
         glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[POSITION_VB]);
@@ -32,6 +33,11 @@ namespace rlm {
 		glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[TEXCOORD_VB]);
 	    glBufferData(GL_ARRAY_BUFFER, sizeof(model.texCoords[1]) * model.texCoords.size(), &model.texCoords[0], GL_STATIC_DRAW);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+        //color Buffer
+        glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[COLOR_VB]);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(model.colors[0]) * model.colors.size(), &model.colors[0], GL_STATIC_DRAW);
+        glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
     }
 
     Shape::Shape(glm::vec2 pos) {
@@ -44,21 +50,22 @@ namespace rlm {
     void Shape::Draw() {
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
+        glEnableVertexAttribArray(2);
 
         shader->update(transform, Game::camera);
         shader->bind();
         glDrawArrays(GL_TRIANGLES, 0, numVertices); // Starting from vertex 0; 3 vertices total -> 1 triangle
-        texture->bind(0);
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
+        glDisableVertexAttribArray(2);
     }
 
     Triangle::Triangle() {
         Vertex vertices[] = {
-                Vertex(glm::vec3(0.0, 0.0, 0), glm::vec2(0.0, 1.0)),
-                Vertex(glm::vec3(0.0, 500.0, 0), glm::vec2(0.0, 0.0)),
-                Vertex(glm::vec3(500.0, 500.0, 0), glm::vec2(1.0, 0.0)),
+                Vertex(glm::vec3(0.0, 0.0, 0), glm::vec2(0.0, 1.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(0.0, 500.0, 0), glm::vec2(0.0, 0.0), glm::vec4(0,1,0,1)),
+                Vertex(glm::vec3(500.0, 500.0, 0), glm::vec2(1.0, 0.0), glm::vec4(0,1,1,1)),
         };
 
         numVertices = sizeof(vertices)/sizeof(vertices[0]);
@@ -66,12 +73,12 @@ namespace rlm {
     }
 
     Triangle::Triangle(glm::vec2 pos, glm::vec2 size) {
-        transform.setPos(glm::vec3(pos,0));
+        transform.setPos(glm::vec3(pos, 0));
 
         Vertex vertices[] = {
-                Vertex(glm::vec3(0, size.y, 0), glm::vec2(0.0, 1.0)),
-                Vertex(glm::vec3(size.x / 2, 0, 0), glm::vec2(0.5, 1.0)),
-                Vertex(glm::vec3(size.x, size.y, 0), glm::vec2(0.0, 0.0)),
+                Vertex(glm::vec3(0, size.y, 0), glm::vec2(0.0, 1.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(size.x / 2, 0, 0), glm::vec2(0.5, 1.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(size.x, size.y, 0), glm::vec2(0.0, 0.0), glm::vec4(1,1,0,1)),
         };
 
         numVertices = sizeof(vertices)/sizeof(vertices[0]);
@@ -84,13 +91,13 @@ namespace rlm {
 
     Rectangle::Rectangle() {
         Vertex vertices[] = {
-                Vertex(glm::vec3(0.0, 0.0, 0), glm::vec2(0.0, 1.0)),
-                Vertex(glm::vec3(0.0, 100.0, 0), glm::vec2(0.0, 0.0)),
-                Vertex(glm::vec3(100.0, 100.0, 0), glm::vec2(1.0, 0.0)),
+                Vertex(glm::vec3(0.0, 0.0, 0), glm::vec2(0.0, 1.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(0.0, 100.0, 0), glm::vec2(0.0, 0.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(100.0, 100.0, 0), glm::vec2(1.0, 0.0), glm::vec4(1,1,0,1)),
 
-                Vertex(glm::vec3(0.0, 0.0, 0), glm::vec2(0.0, 1.0)),
-                Vertex(glm::vec3(100.0, 0.0, 0), glm::vec2(1.0, 1.0)),
-                Vertex(glm::vec3(100.0, 100.0, 0), glm::vec2(1.0, 0.0)),
+                Vertex(glm::vec3(0.0, 0.0, 0), glm::vec2(0.0, 1.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(100.0, 0.0, 0), glm::vec2(1.0, 1.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(100.0, 100.0, 0), glm::vec2(1.0, 0.0), glm::vec4(1,1,0,1)),
         };
 
         numVertices = sizeof(vertices)/sizeof(vertices[0]);
@@ -99,13 +106,13 @@ namespace rlm {
 
     Rectangle::Rectangle(glm::vec2 pos, glm::vec2 size) : Shape(pos) {
         Vertex vertices[] = {
-                Vertex(glm::vec3(pos.x, pos.y, 0), glm::vec2(0.0, 1.0)),
-                Vertex(glm::vec3(pos.x, pos.y + size.y, 0), glm::vec2(0.0, 0.0)),
-                Vertex(glm::vec3(pos.x + size.x, pos.y + size.y, 0), glm::vec2(1.0, 0.0)),
+                Vertex(glm::vec3(pos.x, pos.y, 0), glm::vec2(0.0, 1.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(pos.x, pos.y + size.y, 0), glm::vec2(0.0, 0.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(pos.x + size.x, pos.y + size.y, 0), glm::vec2(1.0, 0.0), glm::vec4(1,1,0,1)),
 
-                Vertex(glm::vec3(pos.x, pos.y, 0), glm::vec2(0.0, 1.0)),
-                Vertex(glm::vec3(pos.x + size.x, pos.y, 0), glm::vec2(1.0, 1.0)),
-                Vertex(glm::vec3(pos.x + size.x, pos.y + size.y, 0), glm::vec2(1.0, 0.0)),
+                Vertex(glm::vec3(pos.x, pos.y, 0), glm::vec2(0.0, 1.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(pos.x + size.x, pos.y, 0), glm::vec2(1.0, 1.0), glm::vec4(1,1,0,1)),
+                Vertex(glm::vec3(pos.x + size.x, pos.y + size.y, 0), glm::vec2(1.0, 0.0), glm::vec4(1,1,0,1)),
         };
 
         numVertices = sizeof(vertices)/sizeof(vertices[0]);

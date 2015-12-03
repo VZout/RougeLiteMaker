@@ -15,7 +15,7 @@ namespace rlm {
 
 		glBindAttribLocation(program, 0, "position");
 		glBindAttribLocation(program, 1, "texCoord");
-		//glBindAttribLocation(program, 2, "normal");
+		glBindAttribLocation(program, 2, "color");
 
 		glLinkProgram(program);
 		checkShaderError(program, GL_LINK_STATUS, true, "Program linking failed: ");
@@ -24,7 +24,7 @@ namespace rlm {
 		checkShaderError(program, GL_VALIDATE_STATUS, true, "Program is invalid: ");
 
 		uniforms[0] = glGetUniformLocation(program, "MVP");
-		//uniforms[1] = glGetUniformLocation(program, "Normal");
+		//uniforms[1] = glGetUniformLocation(program, "normal");
 		//uniforms[2] = glGetUniformLocation(program, "lightDirection");
 	}
 

@@ -11,7 +11,6 @@ namespace rlm {
     class Drawable {
     protected:
         Shader* shader;
-        Texture* texture;
         Transform transform;
     public:
         Drawable() {
@@ -19,7 +18,6 @@ namespace rlm {
         }
         ~Drawable() {
             delete shader;
-            delete texture;
         }
     };
 }

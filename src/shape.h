@@ -22,7 +22,7 @@ namespace rlm {
     protected:
         void InitializeShape(Vertex* vertices);
 
-        static const unsigned int NUM_BUFFERS = 2;
+        static const unsigned int NUM_BUFFERS = 3;
         unsigned int numVertices;
         GLuint _vertexArrayID;
         GLuint _vertexbuffer;
