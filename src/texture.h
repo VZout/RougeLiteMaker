@@ -16,7 +16,8 @@ namespace rlm {
 	private:
 		GLuint texture;
 	public:
-		Texture(const char* fileName);
+		Texture(const char* fileName, const char* unique_name);
+		const char* unique_name;
 		virtual ~Texture();
 
 		void bind(unsigned int unit);

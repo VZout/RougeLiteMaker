@@ -17,7 +17,9 @@
 // TODO: Move png loader to a seperate class.
 
 namespace rlm {
-Texture::Texture(const char* fileName) {
+Texture::Texture(const char* fileName, const char* unique_name) {
+
+	this->unique_name = unique_name;
 
 	TextureData tdata = PNGLoader::loadPNG(fileName);
 
