@@ -6,6 +6,7 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include <camera.h>
+#include <resource_manager.h>
 
 #include "util.h"
 
@@ -37,6 +38,7 @@ class Display;
 
         static Display display;
         static Camera camera;
+        static ResourceManager resource_manager;
     };
 }
 

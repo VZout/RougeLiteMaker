@@ -50,6 +50,7 @@ namespace rlm {
         glEnableVertexAttribArray(1);
         glEnableVertexAttribArray(2);
 
+        glBindVertexArray(_vertexArrayID);
         glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[POSITION_VB]);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[TEXCOORD_VB]);
@@ -57,8 +58,8 @@ namespace rlm {
         glBindBuffer(GL_ARRAY_BUFFER, vertexArrayBuffers[COLOR_VB]);
         glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-        shader->bind();
-        shader->update(transform, Game::camera);
+        //shader->bind();
+        //shader->update(transform, Game::camera); TODO triangles should have a shader possibly.
         glDrawArrays(GL_TRIANGLES, 0, numVertices); // Starting from vertex 0; 3 vertices total -> 1 triangle
 
         glDisableVertexAttribArray(0);

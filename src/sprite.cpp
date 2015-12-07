@@ -6,18 +6,22 @@ namespace rlm {
         texture = NULL;
     }
 
-    Sprite::Sprite(glm::vec2 pos, glm::vec2 size, Texture texture) {
-        rectangle = new Rectangle();
-        texture = texture;
+    Sprite::Sprite(glm::vec2 pos, glm::vec2 size, Texture* texture) {
+        shader = new Shader("res/basicTextureShader");
+        transform.setPos(glm::vec3(pos.x, pos.y, 0));
+        rectangle = new Rectangle(pos, size);
+        this->texture = texture;
     }
 
-    ~Sprite::Sprite() {
+    Sprite::~Sprite() {
         delete rectangle;
         delete texture;
     }
 
     void Sprite::Draw() {
-        Rectangle->Draw();
-        texture->bind();
+        shader->bind();
+        shader->update(transform, Game::camera);
+        texture->bind(0);
+        rectangle->Draw();
     }
 }

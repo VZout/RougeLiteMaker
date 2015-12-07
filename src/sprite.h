@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "shape.h"
-#include "rectangle.h"
+#include "game.h"
 #include "texture.h"
 
 namespace rlm {
@@ -12,9 +12,11 @@ namespace rlm {
     protected:
         Rectangle* rectangle;
         Texture* texture;
+        Shader* shader;
+        Transform transform;
     public:
         Sprite();
-        Sprite(glm::vec2 pos, glm::vec2 size, Texture texture);
+        Sprite(glm::vec2 pos, glm::vec2 size, Texture* texture);
         ~Sprite();
         void Draw();
     };
