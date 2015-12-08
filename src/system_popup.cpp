@@ -22,19 +22,19 @@ namespace rlm {
         #if defined(__WIN32__) || defined(__WIN64__)
 			switch(type) {
 			case WARNING:
-	    		MessageBox(0, "A problem has occured", "Rouge Lite Maker", MB_OK | MB_ICONWARNING);
+	    		MessageBox(0, string, "Rouge Lite Maker", MB_OK | MB_ICONWARNING);
 				break;
 
 			case MESSAGE:
-	    		MessageBox(0, "A problem has occured.", "Rouge Lite Maker", MB_OK | MB_ICONINFORMATION);
+	    		MessageBox(0, string, "Rouge Lite Maker", MB_OK | MB_ICONINFORMATION);
 				break;
 
 			case NONFATAL_ERROR:
-	    		MessageBox(0, "A problem has occured.\n\nWould you like to quit?", "Rouge Lite Maker", MB_YESNO | MB_ICONERROR);
+	    		MessageBox(0, string, "Rouge Lite Maker", MB_YESNO | MB_ICONERROR);
 				break;
 
 			case FATAL_ERROR:
-	    		MessageBox(0, "A problem has occured.\n\nWould you like to quit?", "Rouge Lite Maker", MB_YESNO | MB_ICONERROR);
+	    		MessageBox(0, string, "Rouge Lite Maker", MB_YESNO | MB_ICONERROR);
 				break;
 
 			}

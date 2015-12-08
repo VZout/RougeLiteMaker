@@ -24,7 +24,7 @@ namespace rlm {
 
         window = glfwCreateWindow(1280, 720, "RLMexample", NULL, NULL);
         if (!window) {
-            printerr("Failed to create window. Does your GPU support opengl 3+?");
+            printerr("Failed to create window. Does your GPU support the requested context version?");
             glfwTerminate();
         }
 

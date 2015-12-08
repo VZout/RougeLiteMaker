@@ -18,6 +18,7 @@ namespace rlm {
 
         void CreateTextureGroup(const char* name, unsigned int id);
         void LoadTexture(const char* path, const char* unique_name, unsigned int texture_group);
+        void LoadTexture(const char* path, const char* unique_name, unsigned int texture_group, Filter filter);
         Texture* GetTexture(const char* unique_name, unsigned int texture_group);
     };
 }

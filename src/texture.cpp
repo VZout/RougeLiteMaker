@@ -18,7 +18,18 @@
 
 namespace rlm {
 Texture::Texture(const char* fileName, const char* unique_name) {
+	InitTexture(fileName, unique_name, NEAREST);
+}
 
+Texture::Texture(const char* fileName, const char* unique_name, Filter filter) {
+	InitTexture(fileName, unique_name, filter);
+}
+
+Texture::~Texture() {
+	glDeleteTextures(1, &texture);
+}
+
+void Texture::InitTexture(const char* fileName, const char* unique_name, Filter filter) {
 	this->unique_name = unique_name;
 
 	TextureData tdata = PNGLoader::loadPNG(fileName);
@@ -30,9 +41,24 @@ Texture::Texture(const char* fileName, const char* unique_name) {
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
 
-//TODO optional texturefiltering
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // Texture Filter
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // Texture Filter
+	switch(filter) {
+		case NEAREST:
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		break;
+		case LINEAR:
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		break;
+		case BILLIONAIR:
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		break;
+		default:
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		break;
+	}
 
     glTexImage2D(GL_TEXTURE_2D, 0, tdata.getFormat(), tdata.getWidth(), tdata.getHeight(),
 				0, tdata.getFormat(), GL_UNSIGNED_BYTE, tdata.getTextureData());
@@ -42,10 +68,6 @@ Texture::Texture(const char* fileName, const char* unique_name) {
     free(tdata.getTextureData());
     free(tdata.getRowPointers());
     fclose(tdata.getFile());
-}
-
-Texture::~Texture() {
-	glDeleteTextures(1, &texture);
 }
 
 void Texture::bind(unsigned int unit) {

@@ -25,6 +25,11 @@ namespace rlm {
         textures[texture_group].push_back(texture);
     }
 
+    void ResourceManager::LoadTexture(const char* path, const char* unique_name, unsigned int texture_group, Filter filter) {
+        Texture* texture = new Texture(path, unique_name, filter);
+        textures[texture_group].push_back(texture);
+    }
+
     Texture* ResourceManager::GetTexture(const char* unique_name, unsigned int texture_group) {
         for(unsigned int i = 0; i < textures[texture_group].size(); i++) {
             if(textures[texture_group][i]->unique_name == unique_name) {

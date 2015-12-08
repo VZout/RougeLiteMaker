@@ -12,11 +12,21 @@
 #include <GL/glew.h>
 
 namespace rlm {
+
+	enum Filter {
+		NEAREST,
+		BILLIONAIR,
+		LINEAR,
+	};
+
 	class Texture {
 	private:
 		GLuint texture;
 	public:
+
+		Texture(const char* fileName, const char* unique_name, Filter filter);
 		Texture(const char* fileName, const char* unique_name);
+		void InitTexture(const char* fileName, const char* unique_name, Filter filter);
 		const char* unique_name;
 		virtual ~Texture();
 
