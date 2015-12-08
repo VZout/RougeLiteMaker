@@ -20,10 +20,17 @@ namespace rlm {
 class Game;
 
     class Display {
-    public:
-        void Create(Game* parent);
-
+    private:
         GLFWwindow* window;
+        float width;
+        float height;
+        const char* title;
+    public:
+        void Create(Game* game, float width, float height, const char* title);
+
+        float GetWidth() { return width; }
+        float GetHeight() { return height; }
+        const char* GetTitle() { return title; }
     };
 }
 

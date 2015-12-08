@@ -11,7 +11,10 @@
 #include <vector>
 
 namespace rlm {
-    void Display::Create(Game* parent) {
+    void Display::Create(Game* game, float width, float height, const char* title) {
+        this->width = width;
+        this->height = height;
+        this->title = title;
 
         if (!glfwInit()) {
             printerr("Error initializing GLFW");
@@ -22,27 +25,28 @@ namespace rlm {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        window = glfwCreateWindow(1280, 720, "RLMexample", NULL, NULL);
+        window = glfwCreateWindow(width, height, "RLMexample", NULL, NULL);
         if (!window) {
             printerr("Failed to create window. Does your GPU support the requested context version?");
-            glfwTerminate();
+            game->Quit();
         }
 
         glfwMakeContextCurrent(window);
         glewExperimental=true; // Needed in core profile
         if (glewInit() != GLEW_OK) {
-            fprintf(stderr, "Failed to initialize GLEW\n");
-            //return -1; TODO: EXIT TO LAZY UGH.
+            printerr("Failed to initialize GLEW");
+            game->Quit();
         }
 
-        std::cout << "Hello:" << glGetString(GL_VERSION) << std::endl;
-        parent->InitGame();
+        std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
+
+        game->InitGame();
 
         while(!glfwWindowShouldClose(window)) {
     		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glClearColor(0, 0, 0, 1);
 
-            parent->GameLoop();
+            game->GameLoop();
 
             glfwSwapBuffers(window);
             glfwPollEvents();

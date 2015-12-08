@@ -28,13 +28,16 @@ class Display;
         Game();
         ~Game();
 
-        void Start();
+        void Start(float width, float height, const char* title);
         void GameLoop();
         void InitGame();
 
         void SetInitFunction(void (*init)());
         void SetRenderFunction(void (*render)());
         void SetUpdateFunction(void (*update)());
+
+        void CleanUp();
+        void Quit();
 
         static Display display;
         static Camera camera;

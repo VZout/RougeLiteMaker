@@ -21,6 +21,7 @@ namespace rlm {
 	}
 
 	Game::~Game() {
+		CleanUp();
 	}
 
 	void Game::InitGame() {
@@ -43,8 +44,8 @@ namespace rlm {
 			print("No update function");
 	}
 
-	void Game::Start() {
-		display.Create(this);
+	void Game::Start(float width, float height, const char* title) {
+		display.Create(this, width, height, title);
 	}
 
 	void Game::SetInitFunction(void (*init)()) {
@@ -60,6 +61,15 @@ namespace rlm {
 	void Game::SetUpdateFunction(void (*update)()) {
 		this->update = update;
 		_has_update = true;
+	}
+
+	void Game::CleanUp() {
+		//delete window;
+	}
+
+	void Game::Quit() {
+		CleanUp();
+		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 
 }
