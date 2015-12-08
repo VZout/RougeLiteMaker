@@ -4,6 +4,13 @@ namespace rlm {
     Collider(glm::vec2 pos, glm::vec2 size) {
         _pos = pos;
         _size = size;
+        _type = NON_SOLID;
+    }
+
+    Collider(glm::vec2 pos, glm::vec2 size, Collider type) {
+        _pos = pos;
+        _size = size;
+        _type = type;
     }
 
     ~Collider() {
