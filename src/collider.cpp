@@ -1,23 +1,23 @@
 #include "collider.h"
 
 namespace rlm {
-    Collider(glm::vec2 pos, glm::vec2 size) {
+    BoxCollider::BoxCollider(glm::vec2 pos, glm::vec2 size) {
         _pos = pos;
         _size = size;
         _type = NON_SOLID;
     }
 
-    Collider(glm::vec2 pos, glm::vec2 size, Collider type) {
+    BoxCollider::BoxCollider(glm::vec2 pos, glm::vec2 size, ColliderType type) {
         _pos = pos;
         _size = size;
         _type = type;
     }
 
-    ~Collider() {
+    BoxCollider::~BoxCollider() {
 
     }
 
-    bool Collider::Overlaps(BoxCollider other) {
+    bool BoxCollider::Overlaps(BoxCollider other) {
         if(other._pos.x + other._size.x > _pos.x + _size.x &&
             other._pos.x < _pos.x + _size.x &&
             other._pos.y + other._size.y > _pos.y &&
@@ -28,7 +28,7 @@ namespace rlm {
         }
     }
 
-    bool Collider::Overlaps(glm::vec2 point) {
+    bool BoxCollider::Overlaps(glm::vec2 point) {
         if(point.x > _pos.x &&
             point.x < _pos.x + _size.x &&
             point.y > _pos.y &&
@@ -39,15 +39,15 @@ namespace rlm {
         }
     }
 
-    CollisionSides Collider::GetCollision(BoxCollision other) {
+    ColliderSide BoxCollider::GetCollision(BoxCollider other) {
         return TOP;
     }
 
-    glm::vec2 GetPos() {
+    glm::vec2 BoxCollider::GetPos() {
         return _pos;
     }
 
-    glm::vec2 GetSize() {
+    glm::vec2 BoxCollider::GetSize() {
         return _size;
     }
 }

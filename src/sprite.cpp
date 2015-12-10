@@ -24,4 +24,11 @@ namespace rlm {
         texture->bind(0);
         rectangle->Draw();
     }
+
+    void Sprite::SetPos(glm::vec2 pos) {
+        transform.setPos(glm::vec3(pos.x, pos.y, 0));
+    }
+    void Sprite::SetSize(glm::vec2 size) {
+
+    }
 }

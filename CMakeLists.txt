@@ -26,7 +26,7 @@ LINK_DIRECTORIES(./lib/)
 
 add_library(RougeLiteMaker ${SOURCES})
 
-target_link_libraries(RougeLiteMaker dl glfw3 GL X11 Xi Xrandr Xxf86vm Xinerama Xcursor rt m pthread)
+target_link_libraries(RougeLiteMaker dl glfw3 GL X11 Xi Xrandr Xxf86vm Xinerama Xcursor rt m Box2D pthread)
 
 # Set executable location to /Debug
 set_target_properties(RougeLiteMaker PROPERTIES RUNTIME_OUTPUT_DIRECTORY ./Debug/)

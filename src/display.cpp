@@ -25,6 +25,8 @@ namespace rlm {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+        glfwSwapInterval(1);
+
         window = glfwCreateWindow(width, height, title, NULL, NULL);
         if (!window) {
             printerr("Failed to create window. Does your GPU support the requested context version?");

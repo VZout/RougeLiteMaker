@@ -19,6 +19,8 @@ namespace rlm {
         Sprite(glm::vec2 pos, glm::vec2 size, Texture* texture);
         ~Sprite();
         void Draw();
+        void SetPos(glm::vec2 pos);
+        void SetSize(glm::vec2 size);
     };
 }
 

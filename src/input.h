@@ -10,7 +10,7 @@ namespace rlm {
         static std::vector<int> _held_keys;
         static std::vector<int> _down_keys;
         static std::vector<int> _up_keys;
-        static glm::vec2 _mouse_pos
+        static glm::vec2 _mouse_pos;
 
     public:
         static bool GetKeyDown(int key);

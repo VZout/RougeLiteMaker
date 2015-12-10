@@ -5,7 +5,7 @@
 
 namespace rlm {
 
-    enum ColliderSides {
+    enum ColliderSide {
             TOP,
             BOTTOM,
             LEFT,
@@ -13,28 +13,26 @@ namespace rlm {
             NONE,
     };
 
-    enum ColliderTypes {
+    enum ColliderType {
         SOLID,
         NON_SOLID,
-    }
+    };
 
-    class BoxCollider() {
+    class BoxCollider {
     private:
         glm::vec2 _pos;
         glm::vec2 _size;
         ColliderType _type;
     public:
-        Collider(glm::vec2 pos, glm::vec2 size);
-        Collider(glm::vec2 pos, glm::vec2 size, ColliderType type);
-        ~Collider();
+        BoxCollider(glm::vec2 pos, glm::vec2 size);
+        BoxCollider(glm::vec2 pos, glm::vec2 size, ColliderType type);
+        ~BoxCollider();
 
-        glm::vec2 GetPos();
-        glm::vec2 GetSize();
         bool Overlaps(BoxCollider other);
         bool Overlaps(glm::vec2 point);
         glm::vec2 GetPos();
         glm::vec2 GetSize();
-        CollisionSides HasCollision(BoxCollider other);
+        ColliderSide GetCollision(BoxCollider other);
 
     };
 }
