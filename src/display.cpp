@@ -11,6 +11,16 @@
 #include <vector>
 
 namespace rlm {
+
+    void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+    {
+        if (action == GLFW_PRESS) {
+            Input::AddDownKey(key);
+        } else if(GLFW_RELEASE) {
+            Input::RemoveHeldKey(key);
+        }
+    }
+
     void Display::Create(Game* game, float width, float height, const char* title) {
         this->width = width;
         this->height = height;
@@ -33,6 +43,8 @@ namespace rlm {
             game->Quit();
         }
 
+        glfwSetKeyCallback(window, key_callback);
+
         glfwMakeContextCurrent(window);
         glewExperimental=true; // Needed in core profile
         if (glewInit() != GLEW_OK) {
@@ -51,7 +63,9 @@ namespace rlm {
             game->GameLoop();
 
             glfwSwapBuffers(window);
+            Input::ClearInput();
             glfwPollEvents();
+
         }
 
         glfwTerminate();
