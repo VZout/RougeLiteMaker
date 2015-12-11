@@ -2,6 +2,7 @@
 #define INPUT_H_
 
 #include <vector>
+#include <algorithm>
 #include <glm/glm.hpp>
 
 namespace rlm {
