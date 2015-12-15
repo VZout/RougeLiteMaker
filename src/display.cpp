@@ -46,7 +46,7 @@ namespace rlm {
         glfwSetKeyCallback(window, key_callback);
 
         glfwMakeContextCurrent(window);
-        glewExperimental=true; // Needed in core profile
+        glewExperimental=true; // Needed in core profile.
         if (glewInit() != GLEW_OK) {
             printerr("Failed to initialize GLEW");
             game->Quit();
